@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HRMS - Employees</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{primary:{50:'#eff6ff',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a'}}}}}</script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <div class="min-h-screen flex">
+    <aside class="w-64 bg-primary-900 text-white flex flex-col">
+      <div class="p-5 border-b border-primary-800"><h1 class="text-xl font-bold">HRMS Admin</h1><p class="text-primary-300 text-sm mt-1">admin@gmail.com</p></div>
+      <nav class="flex-1 p-3 space-y-1">
+        <a class="block px-4 py-2.5 rounded-lg text-sm text-primary-200">Dashboard</a>
+        <a class="block px-4 py-2.5 rounded-lg text-sm font-medium bg-primary-700 text-white">Employees</a>
+        <a class="block px-4 py-2.5 rounded-lg text-sm text-primary-200">Attendance</a>
+        <a class="block px-4 py-2.5 rounded-lg text-sm text-primary-200">Leave</a>
+        <a class="block px-4 py-2.5 rounded-lg text-sm text-primary-200">Payroll</a>
+        <a class="block px-4 py-2.5 rounded-lg text-sm text-primary-200">Reports</a>
+      </nav>
+    </aside>
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Employees</h2>
+        <button class="bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ Add Employee</button>
+      </div>
+      <div class="bg-white rounded-xl border overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 text-left">
+            <tr>
+              <th class="px-4 py-3">Code</th><th class="px-4 py-3">Name</th><th class="px-4 py-3">Department</th>
+              <th class="px-4 py-3">Designation</th><th class="px-4 py-3">Salary</th><th class="px-4 py-3">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t"><td class="px-4 py-3 font-medium">EMP001</td><td class="px-4 py-3">System Admin</td><td class="px-4 py-3">Management</td><td class="px-4 py-3">Administrator</td><td class="px-4 py-3">₹1,00,000</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Active</span></td></tr>
+            <tr class="border-t"><td class="px-4 py-3 font-medium">EMP002</td><td class="px-4 py-3">Priya Sharma</td><td class="px-4 py-3">Human Resources</td><td class="px-4 py-3">HR Manager</td><td class="px-4 py-3">₹70,000</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Active</span></td></tr>
+            <tr class="border-t"><td class="px-4 py-3 font-medium">EMP003</td><td class="px-4 py-3">Abi Kumar</td><td class="px-4 py-3">Engineering</td><td class="px-4 py-3">Software Engineer</td><td class="px-4 py-3">₹50,000</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Active</span></td></tr>
+            <tr class="border-t"><td class="px-4 py-3 font-medium">EMP004</td><td class="px-4 py-3">Pradeesh Rajan</td><td class="px-4 py-3">Engineering</td><td class="px-4 py-3">Senior Developer</td><td class="px-4 py-3">₹65,000</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Active</span></td></tr>
+            <tr class="border-t"><td class="px-4 py-3 font-medium">EMP005</td><td class="px-4 py-3">Linga Murugan</td><td class="px-4 py-3">Sales</td><td class="px-4 py-3">Sales Executive</td><td class="px-4 py-3">₹40,000</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Active</span></td></tr>
+            <tr class="border-t"><td class="px-4 py-3 font-medium">EMP006</td><td class="px-4 py-3">Rohith Suresh</td><td class="px-4 py-3">Marketing</td><td class="px-4 py-3">Marketing Executive</td><td class="px-4 py-3">₹45,000</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Active</span></td></tr>
+            <tr class="border-t"><td class="px-4 py-3 font-medium">EMP007</td><td class="px-4 py-3">Sugan Vasanth</td><td class="px-4 py-3">Finance</td><td class="px-4 py-3">Accountant</td><td class="px-4 py-3">₹48,000</td><td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
