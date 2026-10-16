@@ -36,7 +36,7 @@ export default function EmployeesPage() {
       {msg && <div className="mb-4 text-sm text-green-700 bg-green-50 px-3 py-2 rounded">{msg}</div>}
       {showForm && (
         <form onSubmit={submit} className="bg-white p-5 rounded-xl border mb-6 grid grid-cols-2 gap-3">
-          {['email','password','employee_code','first_name','last_name','department','designation','joining_date','basic_salary','hra','allowances'].map(k => (
+          {['email','password','employee_code','first_name','last_name','department','designation','region','joining_date','basic_salary','hra','allowances'].map(k => (
             <div key={k}>
               <label className="text-xs text-slate-500 capitalize">{k.replace('_',' ')}</label>
               <input type={k === 'joining_date' ? 'date' : k === 'password' ? 'password' : 'text'} required={['email','password','employee_code','first_name','last_name','joining_date','basic_salary'].includes(k)}
@@ -57,6 +57,7 @@ export default function EmployeesPage() {
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Department</th>
               <th className="px-4 py-3">Designation</th>
+              <th className="px-4 py-3">Region</th>
               <th className="px-4 py-3">Salary</th>
               <th className="px-4 py-3">Status</th>
             </tr>
@@ -68,6 +69,7 @@ export default function EmployeesPage() {
                 <td className="px-4 py-3">{e.first_name} {e.last_name}</td>
                 <td className="px-4 py-3">{e.department}</td>
                 <td className="px-4 py-3">{e.designation}</td>
+                <td className="px-4 py-3">{e.region || '-'}</td>
                 <td className="px-4 py-3">₹{Number(e.basic_salary).toLocaleString()}</td>
                 <td className="px-4 py-3">
                   <span className={`px-2 py-0.5 rounded-full text-xs ${e.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>

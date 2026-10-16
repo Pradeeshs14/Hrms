@@ -13,14 +13,20 @@ from app.schemas.leave import (
     LeaveRequestOut, LeaveAction
 )
 from app.api.deps import get_current_user, require_roles, get_current_employee, log_audit
+from app.services import holiday_service as holidays
+from app.services import notification_service as notify
 from app.services.email_service import send_email
 
 router = APIRouter(prefix="/leave", tags=["Leave"])
 
-def _calc_days(start: date, end: date) -> Decimal:
+def _calc_days(db: Session, employee: Employee, start: date, end: date) -> Decimal:
+    """Leave is charged on working days only - weekends and holidays are free."""
     if end < start:
         raise HTTPException(400, "End date must be after start date")
-    return Decimal(str((end - start).days + 1))
+    days = holidays.count_leave_days(db, employee, start, end)
+    if days <= 0:
+        raise HTTPException(400, "Selected range has no working days (weekends/holidays only)")
+    return Decimal(str(days))
 
 def _lr_out(lr: LeaveRequest) -> LeaveRequestOut:
     return LeaveRequestOut(
@@ -64,7 +70,7 @@ def apply_leave(
     lt = db.query(LeaveType).filter(LeaveType.id == data.leave_type_id).first()
     if not lt:
         raise HTTPException(404, "Leave type not found")
-    days = _calc_days(data.start_date, data.end_date)
+    days = _calc_days(db, emp, data.start_date, data.end_date)
     year = data.start_date.year
     bal = db.query(LeaveBalance).filter(
         LeaveBalance.employee_id == emp.id,
@@ -86,6 +92,12 @@ def apply_leave(
     log_audit(db, emp.user_id, "APPLY_LEAVE", "leave_request", lr.id,
               {"days": float(days), "type": lt.name},
               request.client.host if request.client else None)
+    notify.notify_roles(
+        db, ("Admin", "HR"),
+        f"Leave request from {emp.first_name} {emp.last_name}",
+        f"{lt.name}: {float(days)} working day(s) from {data.start_date} to {data.end_date}.",
+        category="Leave", link="/admin/leave", created_by=emp.user_id,
+    )
     # Notify HR/Admin (simulated)
     send_email(
         to="hr@gmail.com",
@@ -151,6 +163,15 @@ def action_leave(
               {}, request.client.host if request.client else None)
 
     emp = lr.employee
+    if emp:
+        notify.notify_employee(
+            db, emp, f"Leave request {data.status.lower()}",
+            f"Your {lr.leave_type.name if lr.leave_type else 'leave'} request for "
+            f"{lr.start_date} to {lr.end_date} was {data.status.lower()}."
+            + (f" Remarks: {data.notes}" if data.notes else ""),
+            category="Leave", link="/employee/leave", priority="High",
+            created_by=current_user.id,
+        )
     if emp and emp.user:
         send_email(
             to=emp.user.email,

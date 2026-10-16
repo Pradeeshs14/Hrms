@@ -17,6 +17,7 @@ class EmployeeCreate(BaseModel):
     allowances: Decimal = Decimal("0")
     phone: Optional[str] = None
     address: Optional[str] = None
+    region: Optional[str] = None
     role: str = "Employee"
 
 class EmployeeUpdate(BaseModel):
@@ -29,6 +30,7 @@ class EmployeeUpdate(BaseModel):
     allowances: Optional[Decimal] = None
     phone: Optional[str] = None
     address: Optional[str] = None
+    region: Optional[str] = None
     is_active: Optional[bool] = None
 
 class EmployeeOut(BaseModel):
@@ -45,6 +47,7 @@ class EmployeeOut(BaseModel):
     allowances: Decimal
     phone: Optional[str]
     address: Optional[str]
+    region: Optional[str] = None
     documents: Optional[List[Any]] = []
     is_active: bool
     email: Optional[str] = None

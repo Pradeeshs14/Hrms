@@ -5,7 +5,10 @@ import os
 
 from app.database import engine, Base
 from app.config import settings
-from app.api import auth, employees, attendance, leave, payroll, reports
+from app.api import (
+    auth, employees, attendance, leave, payroll, reports,
+    holidays, notifications, shifts, compensation,
+)
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -13,7 +16,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="HRMS API",
     description="Human Resource Management System - Secure & Scalable",
-    version="1.0.0",
+    version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -35,10 +38,14 @@ app.include_router(attendance.router, prefix="/api")
 app.include_router(leave.router, prefix="/api")
 app.include_router(payroll.router, prefix="/api")
 app.include_router(reports.router, prefix="/api")
+app.include_router(holidays.router, prefix="/api")
+app.include_router(notifications.router, prefix="/api")
+app.include_router(shifts.router, prefix="/api")
+app.include_router(compensation.router, prefix="/api")
 
 @app.get("/")
 def root():
-    return {"message": "HRMS API is running", "docs": "/docs", "version": "1.0.0"}
+    return {"message": "HRMS API is running", "docs": "/docs", "version": "2.0.0"}
 
 @app.get("/health")
 def health():

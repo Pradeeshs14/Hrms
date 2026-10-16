@@ -19,6 +19,7 @@ class Employee(Base):
     allowances = Column(Numeric(12, 2), default=0)
     phone = Column(String(20))
     address = Column(Text)
+    region = Column(String(80), nullable=True)  # used for regional holiday applicability
     documents = Column(JSON, default=list)  # list of {filename, path, uploaded_at}
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -29,3 +30,5 @@ class Employee(Base):
     leave_balances = relationship("LeaveBalance", back_populates="employee")
     leave_requests = relationship("LeaveRequest", back_populates="employee")
     payrolls = relationship("Payroll", back_populates="employee")
+    shift_history = relationship("EmployeeShift", back_populates="employee")
+    salary_revisions = relationship("SalaryRevision", back_populates="employee")
