@@ -283,5 +283,3 @@ and falls back to the operating-system preference until the user picks a theme.
 - Sample salary slip: Admin → Payroll → Breakdown/PDF, or `sample_data/`
 
 ---
-
-Built for demonstration / assignment use.
